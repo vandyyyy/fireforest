@@ -8,6 +8,8 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import Navbar from "./Navbar";
+import { AuthContextProvider } from "./AuthContext";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -30,6 +32,15 @@ const Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
+        
+      <Box
+
+          padding="0px"
+        >
+          <AuthContextProvider>
+            <Navbar />
+          </AuthContextProvider>
+      </Box>
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
@@ -37,6 +48,7 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+
         {/* <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>

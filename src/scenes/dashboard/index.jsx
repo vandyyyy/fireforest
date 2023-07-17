@@ -9,15 +9,19 @@ import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import GeographyChart from "../../components/GeographyChart";
+import MapComponent from "../../components/MapComponent1";
+import WeatherComponent from "../../components/WeatherComponent";
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const { temperature, pressure, windspeed, precipitation } = WeatherComponent();
+  console.log("hi");
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="DASHBOARD" subtitle="KAZAKHSTAN FOREST" />
 
         <Box>
           {/* <Button
@@ -115,8 +119,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="PIR sensor Value"
-            subtitle="45"
+            title="Pressure (Bar)"
+            subtitle={pressure / 1000}
             progress="0.2"
             increase="+20%"
             
@@ -130,12 +134,30 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="Smoke Sensor values (CO, Co2)"
-            subtitle="25"
+            title="Precipitation"
+            subtitle={precipitation}
             progress="0.25"
             increase="-7%"
             
           />
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          padding="0px"
+        >
+          {/* <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Kazakhstan Map
+          </Typography> */}
+          <Box height="100%">
+            {/* <GeographyChart isDashboard={true} /> */}
+            <MapComponent />
+          </Box>
         </Box>
         <Box
           gridColumn="span 3"
@@ -146,7 +168,7 @@ const Dashboard = () => {
         >
           <StatBox
             title="Temperature Sensor (°C)"
-            subtitle="34"
+            subtitle={(temperature - 272.15).toFixed(2)}
             progress="0.34"
             increase="+6%"
           />
@@ -159,8 +181,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="Vibration Value (edited)"
-            subtitle="87"
+            title="Windspeed (in km/hr)"
+            subtitle={windspeed}
             progress="0.24"
             increase="+24%"
             
@@ -267,7 +289,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Sensor 1
+            Safety Rating
           </Typography>
           <Box
             display="flex"
@@ -281,13 +303,13 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              95 
+              95 %
             </Typography>
             <Typography>Safe</Typography>
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -296,29 +318,13 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sensor 2
+            Sensor Data - Bar Chart  
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="90%" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-             Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
-          </Box>
-        </Box>
+{/* here */}
       </Box>
     </Box>
   );

@@ -16,7 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-//import flogo from "../auth/flogo.jpeg"
+import flogo from "./flogo.jpeg"
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -93,11 +93,11 @@ const Sidebar = () => {
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../../public/assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                  alt="LOGO"
+                  width="200px"
+                  height="80px"
+                  src={flogo}
+                  style={{ cursor: "pointer" }}
                 />
               </Box>
               <Box textAlign="center">
@@ -191,33 +191,33 @@ const Sidebar = () => {
               Analysed Info
             </Typography>
             <Item
-              title="Sensor 1"
+              title="BAR-CHART"
               to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Sensor 2"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Sensor 3"
+              title="LINE-CHART"
               to="/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-             <Item
+             {/* <Item
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>

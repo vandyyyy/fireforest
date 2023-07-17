@@ -1,0 +1,12 @@
+button{
+    width: 80px;
+    height: 30px;
+    background-color: #74d74d;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+.login-button{
+    padding-top: 0px;
+}

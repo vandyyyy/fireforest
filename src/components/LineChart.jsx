@@ -1,15 +1,90 @@
 import { ResponsiveLine } from "@nivo/line";
+import { useEffect,useState } from "react";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData";
+import { processTempData } from "../data/linechartData";
 
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [tempSet, setTempSet] = useState(false);
+  const [data_rt,setData_rt] = useState([]);
+  const [pirGraph,setPirGraph] = useState([]);
+  const [vibGraph,setVibGraph] = useState([]);
+  const [smokeGraph, setSmokeGraph] = useState([]);
+  const [tempData, setTempData] = useState({
+    id: "Temperature",
+    color: tokens("dark").greenAccent[500],
+    data: data
+  });
+  const [pirData, setPirData] = useState({
+    id: "PIR",
+    color: tokens("dark").blueAccent[300],
+    data: data
+  });
+  const [vibData,setVibData] = useState({
+    id: "Vibration",
+    color: tokens("dark").redAccent[200],
+    data: data
+  })
+  const [smokeData, setSmokeData] = useState({
+    id: "Smoke",
+    color: tokens("dark").greenAccent[200],
+    data: data
+  })
+  const [finalData,setFinalData] = useState([tempData,pirData,smokeData,vibData]);
+
+
+  useEffect(()=>{
+  const fetcher = async() => {
+    await processTempData().then(([processedTemp,processedPir,processedVibration,processedSmoke])=>{
+      setVibGraph([...processedVibration])
+      setData_rt([...processedTemp]);
+      setPirGraph([...processedPir]);
+      setSmokeGraph([...processedSmoke]);
+    })
+   
+    setTempData({
+      id: "Temperature",
+      color: tokens("dark").greenAccent[500],
+      data: data_rt
+    });
+    
+   
+    setPirData({
+      id: "PIR",
+      color: tokens("dark").blueAccent[300],
+      data: pirGraph
+    })
+    setVibData({
+      id: "Vibration",
+    color: tokens("dark").redAccent[200],
+    data: vibGraph
+    })
+    setSmokeData({
+      id: "Smoke",
+    color: tokens("dark").greenAccent[200],
+    data: smokeGraph
+    })
+   if(tempSet){
+    setFinalData([tempData,pirData,smokeData,vibData]);
+   }
+    console.log(finalData)
+  }
+  fetcher();
+  },[tempSet])
+
+  useEffect(()=>{
+      if(data_rt.length == 14){
+        setTempSet(true);
+        setFinalData([tempData,pirData,smokeData,vibData])
+      }
+  },[data_rt])
 
   return (
     <ResponsiveLine
-      data={data}
+      data={finalData}
       theme={{
         axis: {
           domain: {

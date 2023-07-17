@@ -40,48 +40,7 @@ import { tokens } from "../theme";
 //   // );
 // };
 // export default FetchData;
-import { fetchData } from "../FetchData";
-let processedData;
 
-(async () => {
-  try {
-    const fetchedData = await fetchData();
-    let ind = 0;
-    processedData = [
-      {
-        id: ind + 1,
-        // data: fetchedData.slice(-14).map((item, index) => ({
-        //   x: `${index + 1}`,
-        //   y: item.temp,
-        // })),
-        name: fetchedData.slice(-14).map((item) => {
-          return {
-            temp: item.temp,
-          };
-        }),
-        email: fetchedData.slice(-14).map((item) => {
-          return {
-            temp: item.Smoke,
-          };
-        }),
-        age: fetchedData.slice(-14).map((item) => {
-          return {
-            temp: item.PIR,
-          };
-        }),
-        phone: fetchedData.slice(-14).map((item) => {
-          return {
-            temp: item.Vibration,
-          };
-        }),
-        access: "32",
-      },
-    ];
-  } catch (error) {
-    console.error("Error fetching or processing data:", error);
-  }
-})();
-export { processedData };
 export const mockDataTeam = [
   {
     id: 1,
